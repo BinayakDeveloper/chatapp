@@ -26,7 +26,7 @@ async function forgotPassGenLink(req, res) {
       expiresIn: "15m",
     });
 
-    let tempLink = `localhost:500/forgot/${user._id}/${token}`;
+    let tempLink = `https://bichat.onrender.com/forgot/${user._id}/${token}`;
     console.log(tempLink);
 
     req.flash("invalidUser", "Mail sent...");

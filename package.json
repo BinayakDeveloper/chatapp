@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "This Is An Advance Chat App",
   "main": "script.js",
+  "engines": {
+    "node": ">=14.20.1"
+  },
   "scripts": {
     "start": "nodemon script.js"
   },
