@@ -11,7 +11,7 @@ function sendMails(receiver, htmlCode) {
   const mailOptions = {
     from: "banjarajajabar@gmail.com",
     to: receiver,
-    subject: "Testing",
+    subject: "Reset your password",
     html: htmlCode,
   };
   transport.sendMail(mailOptions);
