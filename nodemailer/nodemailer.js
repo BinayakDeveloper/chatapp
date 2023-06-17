@@ -12,7 +12,7 @@ function sendMails(receiver, htmlCode) {
     from: "banjarajajabar@gmail.com",
     to: receiver,
     subject: "Testing",
-    text: htmlCode,
+    html: htmlCode,
   };
   transport.sendMail(mailOptions);
 }
