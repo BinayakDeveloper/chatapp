@@ -15,7 +15,7 @@ async function forgotPassGenLink(req, res) {
   let user = await database.findOne({ email });
   if (user != null) {
     let jwtSecret = process.env.SECRET_KEY;
-    let secret = jwtSecret + user.pass.slice(0, 30);
+    let secret = jwtSecret + user.pass.slice(0, 20);
 
     let payload = {
       email: user.email,
@@ -43,7 +43,7 @@ async function forgotPassGenLink(req, res) {
 async function tokenValidate(req, res) {
   let { id, token } = req.params;
   let user = await database.findById(id);
-  let secret = process.env.SECRET_KEY + user.pass.slice(0, 30);
+  let secret = process.env.SECRET_KEY + user.pass.slice(0, 20);
   try {
     let verify = await jwt.verify(token, secret);
     res.render(publicPath + "/EJS/changePass.ejs", { id: id, token: token });
@@ -57,7 +57,7 @@ async function updatePass(req, res) {
   let { newpass } = req.body;
   let encryptPass = await bcrypt.hash(newpass, 10);
   let user = await database.findById(id);
-  let secret = process.env.SECRET_KEY + user.pass.slice(0, 30);
+  let secret = process.env.SECRET_KEY + user.pass.slice(0, 20);
   try {
     let verify = await jwt.verify(token, secret);
     await database.findByIdAndUpdate(verify.id, {
@@ -65,7 +65,7 @@ async function updatePass(req, res) {
     });
     res.render(publicPath + "/EJS/changeSuccess.ejs");
   } catch (error) {
-    res.send("Token Expired");
+    res.render(publicPath + "/EJS/tokenExpired.ejs");
   }
 }
 

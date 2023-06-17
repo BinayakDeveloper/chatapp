@@ -42,6 +42,8 @@ app.use(express.static(publicPath + "/JS"));
 
 // Routes
 
+// Get Requests
+
 app.get("/", isLogout, (req, res) => {
   res.render(publicPath + "/EJS/login.ejs", {
     invalidLoginDetails: req.flash("invalidLoginDetails"),
@@ -76,9 +78,18 @@ app.get("/dashboard/:uid/:name", isLogin, (req, res) => {
   dashboardAuth(req, res);
 });
 
+app.get("/logout", isLogin, (req, res) => {
+  res.cookie("login", undefined, {
+    expires: new Date(Date.now()),
+  });
+  res.redirect("/");
+});
+
 app.get("*", isLogin, (req, res) => {
   res.redirect("/dashboard/:uid/:name");
 });
+
+// Post Requests
 
 app.post("/login", (req, res) => {
   signin(req, res);
