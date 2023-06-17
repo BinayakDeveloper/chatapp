@@ -1,0 +1,147 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif1;
+}
+
+body {
+    background: #000000;
+}
+
+.container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.head {
+    margin-bottom: 30px;
+}
+
+.head p:nth-child(1) {
+    color: #fff;
+    font-weight: bold;
+    letter-spacing: 0.8px;
+    font-size: 2rem;
+    text-align: center;
+}
+
+.middle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.middle input {
+    background: #5f4848a5;
+    outline: 0;
+    border: 2px solid transparent;
+    padding: 15px 40px 15px 15px;
+    width: 100%;
+    font-size: 1.1rem;
+    border-radius: 10px;
+    color: #fff;
+    letter-spacing: 0.5px;
+    transition: 0.2s ease-in-out;
+}
+
+.middle input::placeholder {
+    color: #ccc2c2;
+    font-size: 0.9rem;
+}
+
+.middle input:focus {
+    border: 2px solid #fff;
+}
+
+.bottom {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 15px;
+    gap: 15px;
+}
+
+.bottom p {
+    position: absolute;
+    color: white;
+    font-weight: 600;
+}
+
+.bottom a {
+    color: #fff;
+    text-decoration: none;
+    text-align: end;
+    width: 100%;
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.bottom button {
+    border: 0;
+    background: linear-gradient(to right, rgb(149, 0, 255), rgb(157, 0, 255), rgb(255, 0, 247));
+    border-radius: 7px;
+    padding: 13px 30px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+.info {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.info p {
+    color: #fff;
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.info a {
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: #fff;
+    transition: 0.3s ease-in-out;
+}
+
+.info a:hover {
+    color: rgb(0, 255, 0);
+}
+
+/* Media queries */
+
+@media (max-width:720px) {
+    .head p:nth-child(1) {
+        font-size: 1.5rem;
+    }
+
+    .head p:nth-child(2) {
+        font-size: 0.7rem;
+    }
+
+    .email input,
+    .pass input {
+        padding: 12px 30px 12px 12px;
+        font-size: 0.9rem;
+    }
+
+    .middle input::placeholder {
+        font-size: 0.9rem;
+    }
+
+    .pass span {
+        margin-right: 10px;
+    }
+}

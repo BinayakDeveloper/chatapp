@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="/register.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="head">
+        <p>Register Your Account</p>
+        <p>Register And Join Our Service</p>
+      </div>
+      <form action="/register" method="post">
+        <div class="middle">
+          <div class="email">
+            <input
+              type="text"
+              name="name"
+              placeholder="Username"
+              autocomplete="off"
+              spellcheck="false"
+              required
+            />
+            <input
+              type="text"
+              name="email"
+              placeholder="Email"
+              autocomplete="off"
+              spellcheck="false"
+              required
+            />
+          </div>
+          <div class="pass">
+            <input
+              type="password"
+              name="pass"
+              placeholder="Password"
+              autocomplete="off"
+              spellcheck="false"
+              required
+            />
+            <span class="fa fa-eye-slash"></span>
+          </div>
+        </div>
+        <div class="bottom">
+          <p class="sameuser"><%= sameuser %></p>
+          <button>Create Your Account</button>
+          <div class="signin">
+            <span>Already registered?</span>
+            <a href="/">Sign in</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </body>
+  <script src="/register.js"></script>
+</html>

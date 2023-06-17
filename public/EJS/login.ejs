@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="/login.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="head">
+        <p>Login to Your Account</p>
+        <p>Connect and chat with anyone, anywhere</p>
+      </div>
+      <form action="/login" method="post">
+        <div class="middle">
+          <div class="email">
+            <input
+              type="text"
+              name="email"
+              placeholder="Email"
+              autocomplete="off"
+              spellcheck="false"
+              required
+            />
+          </div>
+          <div class="pass">
+            <input
+              type="password"
+              name="pass"
+              placeholder="Password"
+              autocomplete="off"
+              spellcheck="false"
+              required
+            />
+            <span class="fa fa-eye-slash"></span>
+          </div>
+          <a href="/forgot">Forgot Password ?</a>
+        </div>
+        <div class="bottom">
+          <p class="invalidDetails"><%= invalidLoginDetails %></p>
+          <button>Login to Your Account</button>
+          <div class="signup">
+            <span>Not a member yet?</span>
+            <a href="/register">Sign up</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </body>
+  <script src="/login.js"></script>
+</html>
