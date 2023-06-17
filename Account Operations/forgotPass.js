@@ -27,7 +27,10 @@ async function forgotPassGenLink(req, res) {
     });
 
     let tempLink = `https://bichat.onrender.com/forgot/${user._id}/${token}`;
-    console.log(tempLink);
+    sendMails(
+      user.email,
+      `<h1 align='center'>Reset Your Password</h1><br><p>Click The Link Below To Reset The Password 👇</p><br><a href='${tempLink}'>${tempLink}</a>`
+    );
 
     req.flash("invalidUser", "Mail sent...");
     res.redirect("/forgot");
