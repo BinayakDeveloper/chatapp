@@ -4,10 +4,120 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="/dashboard.css" />
   </head>
   <body>
-    <h1>Dashboard</h1>
+    <!-- <div class="allUsersContainer">
+      <div class="box-container">
+        <div class="innerElements">
+          <div class="heading-container">
+            <div class="heading">
+              <p>Add users</p>
+              <i class="fa fa-close"></i>
+            </div>
+            <div class="searchUser">
+              <input
+                type="text"
+                placeholder="Search here"
+                autocomplete="off"
+                spellcheck="false"
+              />
+            </div>
+          </div>
+          <div class="allUsers">
+            <% allUsers.forEach((users)=> { %>
+            <div class="user">
+              <div
+                class="user-profilepic"
+                style="--profile-bgcolor: <%= user.colorCode %>"
+              >
+                <p><%= users.name.slice(0,1).toUpperCase() %></p>
+              </div>
+              <div class="user-details">
+                <div class="name">
+                  <p><%= users.name %></p>
+                </div>
+              </div>
+            </div>
+            <% }) %>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <main>
+      <div class="left">
+        <div class="profile">
+          <div
+            class="profile-pic"
+            style="--profile-bgcolor: <%= user.colorCode %>"
+          >
+            <p><%= user.name.slice(0,1).toUpperCase() %></p>
+            <div class="online"></div>
+          </div>
+        </div>
+        <!--<div class="addUser">
+          <i class="fa fa-add"></i>
+        </div>-->
+        <div class="logout">
+          <a href="/logout"><i class="fa fa-sign-out"></i></a>
+        </div>
+      </div>
+      <div class="center">
+        <div class="center-elements">
+          <div class="search">
+            <input
+              type="text"
+              placeholder="Search here"
+              autocomplete="off"
+              spellcheck="false"
+            />
+          </div>
+          <div class="recentUsers">
+            <% allUsers.forEach((users)=> { %>
+            <div class="user">
+              <div
+                class="user-profilepic"
+                style="--profile-bgcolor: <%= user.colorCode %>"
+              >
+                <p><%= users.name.slice(0,1).toUpperCase() %></p>
+              </div>
+              <div class="user-details">
+                <div class="name">
+                  <p><%= users.name %></p>
+                </div>
+              </div>
+            </div>
+            <% }) %>
+            <!-- <div class="user">
+              <div class="user-profilepic">
+                <p>B</p>
+              </div>
+              <div class="user-details">
+                <div class="name">
+                  <p>Binayak</p>
+                </div>
+                <div class="status">
+                  <p>Online</p>
+                </div>
+              </div>
+            </div> -->
+          </div>
+        </div>
+      </div>
+      <div class="right"></div>
+    </main>
+
+    <!-- <h1>Dashboard</h1>
     <h1>Hi <%= locals.user.name %></h1>
-    <a href="/logout">Logout</a>
+    <a href="/logout">Logout</a> -->
   </body>
+  <script src="/dashboard.js"></script>
 </html>

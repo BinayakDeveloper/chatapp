@@ -8,7 +8,7 @@ async function signin(req, res) {
     let passCompare = await bcrypt.compare(pass, user.pass);
     if (passCompare) {
       res.cookie("login", user.token[0].token, {
-        maxAge: 1000 * 60 * 60 * 24 * 30,
+        maxAge: 1000 * 60 * 60 * 24 * 90,
         httpOnly: true,
       });
       res.redirect(`/dashboard/${user.uid}/${user.name}`);

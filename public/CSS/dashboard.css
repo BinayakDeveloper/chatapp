@@ -1,0 +1,264 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background: #0f0e0e;
+}
+
+/* All Users Container */
+
+.allUsersContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    display: none;
+}
+
+.box-container {
+    backdrop-filter: blur(3px);
+    background-blend-mode: screen;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.innerElements {
+    background: #000000;
+    padding: 10px 30px;
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 7px;
+    min-height: 400px;
+    max-height: 400px;
+    overflow: auto;
+}
+
+.innerElements::-webkit-scrollbar {
+    width: 0;
+}
+
+.heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 0;
+    font-size: 1.3rem;
+}
+
+.heading i {
+    cursor: pointer;
+}
+
+.searchUser input {
+    background: #444654;
+    color: #fff;
+    outline: 0;
+    font-size: 1rem;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    transition: 0.2s ease-in-out;
+}
+
+.searchUser input::placeholder {
+    color: #acacbe;
+}
+
+.searchUser input:focus {
+    border: 2px solid #fff;
+}
+
+.searchUser input::selection {
+    user-select: none;
+}
+
+.allUsers {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    max-height: 270px;
+    overflow: auto;
+}
+
+.allUsers::-webkit-scrollbar {
+    width: 0;
+}
+
+.allUsers .user {
+    background: #383030;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    width: 100%;
+    padding: 10px 13px;
+    border-radius: 10px;
+}
+
+main {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+
+.left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px 16px;
+}
+
+.profile {
+    height: 100%;
+}
+
+.profile-pic {
+    background: var(--profile-bgcolor);
+    min-height: 45px;
+    min-width: 45px;
+    border-radius: 50%;
+    font-size: 1.3rem;
+    color: #ffffff;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.online {
+    position: absolute;
+    height: 11px;
+    width: 11px;
+    background: rgb(0, 255, 0);
+    border-radius: 50%;
+    left: 50px;
+    top: 45px;
+}
+
+.addUser {
+    background: rgb(0, 255, 0);
+    padding: 10px 15px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.logout {
+    padding: 23px 10px 0 0;
+    width: 100%;
+    text-align: end;
+    cursor: pointer;
+}
+
+.logout a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.4rem;
+}
+
+.center {
+    height: 100%;
+    min-width: 19vw;
+    max-width: 19vw;
+    background: #211f1f;
+    color: #fff;
+    overflow: auto;
+    padding: 18px 0;
+}
+
+.center::-webkit-scrollbar {
+    width: 5px;
+    background-color: #a47f7f;
+}
+
+.center-elements {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.search input {
+    background: #444654;
+    color: #fff;
+    outline: 0;
+    font-size: 1rem;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    transition: 0.2s ease-in-out;
+}
+
+.search input::placeholder {
+    color: #acacbe;
+}
+
+.search input:focus {
+    border: 1px solid #fff;
+}
+
+.search input::selection {
+    user-select: none;
+}
+
+/* Recent Users */
+
+.recentUsers {
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    padding: 0 20px;
+    max-height: 87vh;
+    overflow: auto;
+}
+
+.recentUsers::-webkit-scrollbar {
+    width: 0;
+}
+
+.recentUsers .user {
+    background: #383030;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    width: 100%;
+    padding: 8px 13px;
+    border-radius: 10px;
+}
+
+.user:hover {
+    background: #4e4444;
+}
+
+.user-profilepic {
+    padding: 4px 12px;
+    background-color: var(--profile-bgcolor);
+    border-radius: 50%;
+    font-size: 18px;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.user-details .name p {
+    font-size: 18px;
+    text-transform: capitalize;
+}
+
+.user-details .status p {
+    color: rgb(220, 210, 210);
+    font-size: 0.8rem;
+}

@@ -10,9 +10,10 @@ dotenv.config({
 
 async function dashboardAuth(req, res) {
   let { uid, name } = req.params;
+  let allUsers = await database.find({});
   let user = await database.findOne({ uid, name });
   if (user != null) {
-    res.render(publicPath + "/EJS/dashboard.ejs", { user });
+    res.render(publicPath + "/EJS/dashboard.ejs", { user, allUsers });
   } else {
     let token = req.cookies.login;
     let verify = await jwt.verify(token, process.env.SECRET_KEY);

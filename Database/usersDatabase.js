@@ -18,6 +18,9 @@ let Schema = new mongoose.Schema({
   pass: {
     type: String,
   },
+  colorCode: {
+    type: String,
+  },
   uid: {
     type: String,
     unique: true,
