@@ -1,9 +1,15 @@
+const dotenv = require("dotenv");
+
+dotenv.config({
+  path: "./secret.env",
+});
+
 const nodemailer = require("nodemailer");
 const transport = nodemailer.createTransport({
   service: "gmail",
   auth: {
     user: "banjarajajabar@gmail.com",
-    pass: "jxwfezqppffwypty",
+    pass: process.env.APP_PASSWORD,
   },
 });
 
