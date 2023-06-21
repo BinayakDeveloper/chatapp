@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="/dashboard.css" />
   </head>
   <body>
-    <!-- <div class="allUsersContainer">
+    <div class="allUsersContainer">
       <div class="box-container">
         <div class="innerElements">
           <div class="heading-container">
@@ -33,10 +33,10 @@
           </div>
           <div class="allUsers">
             <% allUsers.forEach((users)=> { %>
-            <div class="user">
+            <div class="user" id="<%= users._id %>">
               <div
                 class="user-profilepic"
-                style="--profile-bgcolor: <%= user.colorCode %>"
+                style="--profile-bgcolor: <%= users.colorCode %>"
               >
                 <p><%= users.name.slice(0,1).toUpperCase() %></p>
               </div>
@@ -50,11 +50,11 @@
           </div>
         </div>
       </div>
-    </div> -->
+    </div>
 
     <main>
       <div class="left">
-        <div class="profile">
+        <div class="profile" id="<%= user._id %>">
           <div
             class="profile-pic"
             style="--profile-bgcolor: <%= user.colorCode %>"
@@ -63,9 +63,11 @@
             <div class="online"></div>
           </div>
         </div>
-        <!--<div class="addUser">
+
+        <div class="addUser">
           <i class="fa fa-add"></i>
-        </div>-->
+        </div>
+
         <div class="logout">
           <a href="/logout"><i class="fa fa-sign-out"></i></a>
         </div>
@@ -81,43 +83,86 @@
             />
           </div>
           <div class="recentUsers">
-            <% allUsers.forEach((users)=> { %>
-            <div class="user">
+            <% recentChatUsers.forEach((user,index)=>{ %>
+            <div class="user" id="<%= user._id %>">
               <div
                 class="user-profilepic"
-                style="--profile-bgcolor: <%= users.colorCode %>"
+                style="--profile-bgcolor: <%= user.colorCode %>"
               >
-                <p><%= users.name.slice(0,1).toUpperCase() %></p>
+                <p><%= user.name.slice(0,1).toUpperCase() %></p>
               </div>
               <div class="user-details">
                 <div class="name">
-                  <p><%= users.name %></p>
+                  <p><%= user.name %></p>
+                </div>
+                <div class="status">
+                  <p id="<%= user.uid %>"><%= user.onlineStatus %></p>
                 </div>
               </div>
             </div>
             <% }) %>
-            <!-- <div class="user">
-              <div class="user-profilepic">
-                <p>B</p>
-              </div>
-              <div class="user-details">
-                <div class="name">
-                  <p>Binayak</p>
-                </div>
-                <div class="status">
-                  <p>Online</p>
-                </div>
-              </div>
-            </div> -->
           </div>
         </div>
       </div>
-      <div class="right"></div>
-    </main>
+      <div class="right">
+        <div class="sessionStart">
+          <div class="logo">
+            <img src="/logo.png" />
+          </div>
+          <div class="details">
+            <p>Bichat</p>
+            <p>Tap on users to start a chat</p>
+          </div>
+        </div>
+        <div class="chatElements">
+          <div class="chatHeading">
+            <div class="userDetails">
+              <div class="user-profile-pic">
+                <p id="chat-profilepic"></p>
+              </div>
+              <div class="userName">
+                <p id="chat-username"></p>
+                <p id="chat-onlineStatus" aria-details=""></p>
+              </div>
+            </div>
+            <div class="chatOptions">
+              <i class="fa fa-ellipsis"></i>
+              <div class="optionMenu">
+                <ul>
+                  <li id="clearchat">Clear Chat</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="chatSection">
+            <div class="chats"></div>
+          </div>
 
-    <!-- <h1>Dashboard</h1>
-    <h1>Hi <%= locals.user.name %></h1>
-    <a href="/logout">Logout</a> -->
+          <div class="sendMessage">
+            <div class="text-inp">
+              <textarea
+                placeholder="Type a message"
+                autocomplete="off"
+                spellcheck="false"
+              ></textarea>
+              <i
+                class="fa fa-paper-plane"
+                style="--size: 1.2rem; --margin: 0"
+              ></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
   </body>
-  <script src="/dashboard.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/dashboard.js" defer></script>
+  <script>
+    // Initialize Socket
+    let socket = io({
+      auth: {
+        userId: "<%= user._id %>",
+      },
+    });
+  </script>
 </html>

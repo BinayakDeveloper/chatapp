@@ -25,12 +25,14 @@ const signup = async (req, res) => {
       colorCodes[Math.floor(Math.random() * colorCodes.length)];
     if (existingUsers.length != 0) {
       let encryptedPass = await bcrypt.hash(pass, 10);
-      let currentUid = existingUsers[existingUsers.length - 1].uid + 1;
+      let currentUid =
+        Number.parseInt(existingUsers[existingUsers.length - 1].uid) + 1;
       let userData = await database({
         name,
         email,
         pass: encryptedPass,
         colorCode: userColorCode,
+        onlineStatus: "Online",
         uid: currentUid,
       });
       let token = jwt.sign({ _id: userData.id }, process.env.SECRET_KEY);
@@ -47,6 +49,7 @@ const signup = async (req, res) => {
         email,
         pass: encryptedPass,
         colorCode: userColorCode,
+        onlineStatus: "Online",
         uid: currentUid,
       });
       let token = jwt.sign({ _id: userData.id }, process.env.SECRET_KEY);

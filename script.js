@@ -9,13 +9,14 @@ const {
 } = require("./Account Operations/forgotPass");
 const { isLogin, isLogout } = require("./Account Operations/authentication");
 const { dashboardAuth } = require("./Account Operations/dashboard");
+const { socket } = require("./Socket Operation/socket");
 
 // Module Exports
 
 const express = require("express");
 const app = express();
 const server = require("http").createServer(app);
-const socket = require("socket.io")(server);
+const io = require("socket.io")(server);
 const path = require("path");
 const session = require("express-session");
 const flash = require("connect-flash");
@@ -39,6 +40,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(publicPath + "/EJS"));
 app.use(express.static(publicPath + "/CSS"));
 app.use(express.static(publicPath + "/JS"));
+app.use(express.static(publicPath + "/IMAGE"));
 
 // Routes
 
@@ -106,4 +108,9 @@ app.post("/forgotPass", (req, res) => {
 app.post("/updatePass/:id/:token", (req, res) => {
   updatePass(req, res);
 });
+
+// Socket Works
+
+socket(io);
+
 server.listen(500);

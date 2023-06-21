@@ -21,6 +21,9 @@ let Schema = new mongoose.Schema({
   colorCode: {
     type: String,
   },
+  onlineStatus: {
+    type: String,
+  },
   uid: {
     type: String,
     unique: true,

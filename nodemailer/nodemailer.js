@@ -1,19 +1,20 @@
 const dotenv = require("dotenv");
+const nodemailer = require("nodemailer");
 
 dotenv.config({
-  path: "./secret.env",
+  path: "/secret.env",
 });
 
-const nodemailer = require("nodemailer");
 const transport = nodemailer.createTransport({
   service: "gmail",
   auth: {
     user: "banjarajajabar@gmail.com",
-    pass: process.env.APP_PASSWORD,
+    pass: process.env.APP_PASS,
   },
 });
 
 function sendMails(receiver, htmlCode) {
+  console.log(process.env.APP_PASS);
   const mailOptions = {
     from: "banjarajajabar@gmail.com",
     to: receiver,
