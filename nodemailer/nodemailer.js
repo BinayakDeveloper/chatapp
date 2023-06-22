@@ -14,7 +14,6 @@ const transport = nodemailer.createTransport({
 });
 
 function sendMails(receiver, htmlCode) {
-  console.log(process.env.APP_PASS);
   const mailOptions = {
     from: "banjarajajabar@gmail.com",
     to: receiver,

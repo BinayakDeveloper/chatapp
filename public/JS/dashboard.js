@@ -7,7 +7,6 @@ const addUserSearch = document.querySelector(".searchUser input");
 const userName = document.querySelectorAll(
   ".allUsers .user .user-details .name p"
 );
-const recentUsersContainer = document.querySelector(".recentUsers");
 
 // const recentUsers = document.querySelectorAll(".recentUsers .user");
 
@@ -56,33 +55,34 @@ databaseUsers.forEach((val) => {
 });
 
 socket.on("displayRecentChats", (data) => {
+  const recentUsersContainer = document.querySelector(".recentUsers");
   let recentUsersHTML = "";
-  data.forEach((val) => {
+  let { dbUsers, recentChats } = data;
+  recentChats.forEach((val, ind) => {
     let selectorId = document.querySelector(".profile").id;
     if (val.selectorId == selectorId) {
       recentUsersHTML += `<div class="user" id="${val.user._id}">
-                <div
-                  class="user-profilepic"
-                  style="--profile-bgcolor: ${val.user.colorCode}"
-                >
-                  <p>${val.user.name.slice(0, 1).toUpperCase()}</p>
-                </div>
-                <div class="user-details">
-                  <div class="name">
-                    <p>${val.user.name}</p>
-                  </div>
-                  <div class="status">
-                    <p id="${val.user.uid}">${val.user.onlineStatus}</p>
-                  </div>
-                </div>
-              </div>`;
+                    <div
+                      class="user-profilepic"
+                      style="--profile-bgcolor: ${val.user.colorCode}"
+                    >
+                      <p>${val.user.name.slice(0, 1).toUpperCase()}</p>
+                    </div>
+                    <div class="user-details">
+                      <div class="name">
+                        <p>${val.user.name}</p>
+                      </div>
+                      <div class="status">
+                        <p id="${val.user.uid}">${dbUsers[ind].onlineStatus}</p>
+                      </div>
+                    </div>
+                    </div>`;
     }
   });
 
   recentUsersContainer.innerHTML = recentUsersHTML;
   const recentUsers = document.querySelectorAll(".recentUsers .user");
-
-  recentUsers.forEach((user, ind) => {
+  recentUsers.forEach((user) => {
     user.addEventListener("click", () => {
       console.log(user);
       document.querySelector(".chats").innerHTML = "";
@@ -174,13 +174,13 @@ sendBtn.addEventListener("click", () => {
 socket.on("receiveMessage", (data) => {
   let senderId = document.querySelector(".profile").id;
   let receiverId = document.querySelector(".userDetails").id;
-  if (data.senderId == senderId) {
+  if (data.senderId == senderId && data.receiverId == receiverId) {
     let chatContainer = document.querySelector(".chats");
     let outgoingMsg = `<div class="outgoing">
                     <p>${data.message}</p>
                   </div>`;
     chatContainer.insertAdjacentHTML("beforeend", outgoingMsg);
-  } else if (data.senderId == receiverId) {
+  } else if (data.senderId == receiverId && data.receiverId == senderId) {
     let chatContainer = document.querySelector(".chats");
     let incomingMsg = `<div class="incoming">
                     <p>${data.message}</p>

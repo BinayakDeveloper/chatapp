@@ -1,13 +1,16 @@
 const mongoose = require("mongoose");
 
-mongoose
-  .connect(
-    "mongodb+srv://admin:admin@cluster0.udfwpx5.mongodb.net/?retryWrites=true&w=majority",
-    { dbName: "chatapp" }
-  )
-  .then(() => {
-    console.log("Database Connected Successfully");
-  });
+const dotenv = require("dotenv");
+
+dotenv.config({
+  path: "./secret.env",
+});
+
+const { MONGODB_URI, DB_NAME } = process.env;
+
+mongoose.connect(MONGODB_URI, { dbName: DB_NAME }).then(() => {
+  console.log("Database Connected Successfully");
+});
 
 let Schema = new mongoose.Schema({
   name: String,
@@ -23,6 +26,9 @@ let Schema = new mongoose.Schema({
   },
   onlineStatus: {
     type: String,
+  },
+  isOnline: {
+    type: Boolean,
   },
   uid: {
     type: String,

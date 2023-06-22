@@ -1,9 +1,13 @@
 const mongoose = require("mongoose");
+const dotenv = require("dotenv");
 
-mongoose.connect(
-  "mongodb+srv://admin:admin@cluster0.udfwpx5.mongodb.net/?retryWrites=true&w=majority",
-  { dbName: "chatapp" }
-);
+dotenv.config({
+  path: "./secret.env",
+});
+
+const { MONGODB_URI, DB_NAME } = process.env;
+
+mongoose.connect(MONGODB_URI, { dbName: DB_NAME });
 
 let chatSchema = new mongoose.Schema({
   relationalId: String,

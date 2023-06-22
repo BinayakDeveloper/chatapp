@@ -34,6 +34,7 @@ const signup = async (req, res) => {
         colorCode: userColorCode,
         onlineStatus: "Online",
         uid: currentUid,
+        isOnline: false,
       });
       let token = jwt.sign({ _id: userData.id }, process.env.SECRET_KEY);
       userData.token = userData.token.concat({ token });
@@ -51,6 +52,7 @@ const signup = async (req, res) => {
         colorCode: userColorCode,
         onlineStatus: "Online",
         uid: currentUid,
+        isOnline: false,
       });
       let token = jwt.sign({ _id: userData.id }, process.env.SECRET_KEY);
       userData.token = userData.token.concat({ token });

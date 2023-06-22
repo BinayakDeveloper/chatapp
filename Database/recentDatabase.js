@@ -1,9 +1,14 @@
 const mongoose = require("mongoose");
 
-mongoose.connect(
-  "mongodb+srv://admin:admin@cluster0.udfwpx5.mongodb.net/?retryWrites=true&w=majority",
-  { dbName: "chatapp" }
-);
+const dotenv = require("dotenv");
+
+dotenv.config({
+  path: "./secret.env",
+});
+
+const { MONGODB_URI, DB_NAME } = process.env;
+
+mongoose.connect(MONGODB_URI, { dbName: DB_NAME });
 
 let recentChatSchema = new mongoose.Schema({
   selectorId: String,
