@@ -23,6 +23,7 @@ closeBtn.addEventListener("click", () => {
 
 addUserSearch.addEventListener("input", () => {
   let typedName = addUserSearch.value.toLowerCase();
+  console.log(typedName);
   userName.forEach((val) => {
     if (val.innerHTML.toLowerCase().includes(typedName)) {
       let userContainer = val.parentElement.parentElement.parentElement;
@@ -79,25 +80,25 @@ socket.on("displayRecentChats", (data) => {
       socket.emit("getUserDetails", { id: user.id });
     });
   });
-});
 
-// Search User From Recent Chats
+  // Search User From Recent Chats
 
-const recentSearchInput = document.querySelector(".search input");
-const recentUserName = document.querySelectorAll(
-  ".recentUsers .user .user-details .name p"
-);
+  const recentSearchInput = document.querySelector(".search input");
+  const recentUserName = document.querySelectorAll(
+    ".recentUsers .user .user-details .name p"
+  );
 
-recentSearchInput.addEventListener("input", () => {
-  let typedName = recentSearchInput.value.toLowerCase();
-  recentUserName.forEach((val) => {
-    if (val.innerHTML.toLowerCase().includes(typedName)) {
-      let userContainer = val.parentElement.parentElement.parentElement;
-      userContainer.style.display = "flex";
-    } else {
-      let userContainer = val.parentElement.parentElement.parentElement;
-      userContainer.style.display = "none";
-    }
+  recentSearchInput.addEventListener("input", () => {
+    let typedName = recentSearchInput.value.toLowerCase();
+    recentUserName.forEach((val) => {
+      if (val.innerHTML.toLowerCase().includes(typedName)) {
+        let userContainer = val.parentElement.parentElement.parentElement;
+        userContainer.style.display = "flex";
+      } else {
+        let userContainer = val.parentElement.parentElement.parentElement;
+        userContainer.style.display = "none";
+      }
+    });
   });
 });
 
