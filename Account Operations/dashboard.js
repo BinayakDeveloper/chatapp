@@ -12,7 +12,13 @@ dotenv.config({
 async function dashboardAuth(req, res) {
   let { uid, name } = req.params;
   let recentChatUsers = await recentDatabase.find({});
-  let allUsers = await database.find({ uid: { $nin: uid } });
+  let usersIds = [uid];
+  recentChatUsers.forEach((val) => {
+    if (!usersIds.includes(val.user.uid)) {
+      usersIds.push(val.user.uid);
+    }
+  });
+  let allUsers = await database.find({ uid: { $nin: usersIds } });
   let user = await database.findOne({ uid, name });
   if (user != null) {
     res.render(publicPath + "/EJS/dashboard.ejs", {

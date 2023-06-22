@@ -52,6 +52,7 @@ databaseUsers.forEach((val) => {
     let selectorId = document.querySelector(".profile").id;
     socket.emit("addToRecentChat", { userId: val.id, selectorId });
   });
+  location.reload();
 });
 
 socket.on("displayRecentChats", (data) => {
@@ -84,7 +85,6 @@ socket.on("displayRecentChats", (data) => {
   const recentUsers = document.querySelectorAll(".recentUsers .user");
   recentUsers.forEach((user) => {
     user.addEventListener("click", () => {
-      console.log(user);
       document.querySelector(".chats").innerHTML = "";
       socket.emit("getUserDetails", { id: user.id });
     });

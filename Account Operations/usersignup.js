@@ -32,7 +32,7 @@ const signup = async (req, res) => {
         email,
         pass: encryptedPass,
         colorCode: userColorCode,
-        onlineStatus: "Online",
+        onlineStatus: "Offline",
         uid: currentUid,
         isOnline: false,
       });
@@ -50,7 +50,7 @@ const signup = async (req, res) => {
         email,
         pass: encryptedPass,
         colorCode: userColorCode,
-        onlineStatus: "Online",
+        onlineStatus: "Offline",
         uid: currentUid,
         isOnline: false,
       });
