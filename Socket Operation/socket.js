@@ -1,6 +1,6 @@
 const database = require("../Database/usersDatabase");
 const chatDatabase = require("../Database/chatDatabase");
-const recentDatabase = require("../Database/recentDatabase");
+// const recentDatabase = require("../Database/recentDatabase");
 
 async function socket(io) {
   io.on("connection", async (socket) => {
@@ -116,40 +116,40 @@ async function socket(io) {
       }
     });
 
-    socket.on("addToRecentChat", async (data) => {
-      let selectedUser = await database.findById(data.userId);
-      let userExistance = await recentDatabase.findOne({
-        selectorId: data.selectorId,
-        user: selectedUser,
-      });
-      if (userExistance == null) {
-        await recentDatabase({
-          selectorId: data.selectorId,
-          user: selectedUser,
-        }).save();
-      }
-      let recentChats = await recentDatabase.find({});
-      let dbUsers = [];
-      recentChats.forEach(async (val) => {
-        let uid = val.user.uid;
-        let user = await database.findOne({ uid: uid });
-        dbUsers.push(user);
-        if (dbUsers.length == recentChats.length) {
-          socket.emit("displayRecentChats", { dbUsers, recentChats });
-        }
-      });
-    });
+    // socket.on("addToRecentChat", async (data) => {
+    //   let selectedUser = await database.findById(data.userId);
+    //   let userExistance = await recentDatabase.findOne({
+    //     selectorId: data.selectorId,
+    //     user: selectedUser,
+    //   });
+    //   if (userExistance == null) {
+    //     await recentDatabase({
+    //       selectorId: data.selectorId,
+    //       user: selectedUser,
+    //     }).save();
+    //   }
+    //   let recentChats = await recentDatabase.find({});
+    //   let dbUsers = [];
+    //   recentChats.forEach(async (val) => {
+    //     let uid = val.user.uid;
+    //     let user = await database.findOne({ uid: uid });
+    //     dbUsers.push(user);
+    //     if (dbUsers.length == recentChats.length) {
+    //       socket.emit("displayRecentChats", { dbUsers, recentChats });
+    //     }
+    //   });
+    // });
 
-    let recentChats = await recentDatabase.find({});
-    let dbUsers = [];
-    recentChats.forEach(async (val) => {
-      let uid = val.user.uid;
-      let user = await database.findOne({ uid: uid });
-      dbUsers.push(user);
-      if (dbUsers.length == recentChats.length) {
-        socket.emit("displayRecentChats", { dbUsers, recentChats });
-      }
-    });
+    // let recentChats = await recentDatabase.find({});
+    // let dbUsers = [];
+    // recentChats.forEach(async (val) => {
+    //   let uid = val.user.uid;
+    //   let user = await database.findOne({ uid: uid });
+    //   dbUsers.push(user);
+    //   if (dbUsers.length == recentChats.length) {
+    //     socket.emit("displayRecentChats", { dbUsers, recentChats });
+    //   }
+    // });
 
     socket.on("disconnect", async () => {
       // Update Offline Status
