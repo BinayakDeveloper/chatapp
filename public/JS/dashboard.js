@@ -181,7 +181,9 @@ socket.on("receiveMessage", (data) => {
 });
 
 // Socket Listeners
+
 socket.on("onlineStatus", (uid) => {
+  console.log("Entered Online Status");
   let textContainer = document.getElementById(uid.uid);
   if (textContainer != null) {
     textContainer.textContent = "Online";
@@ -189,6 +191,7 @@ socket.on("onlineStatus", (uid) => {
 });
 
 socket.on("offlineStatus", (uid) => {
+  console.log("Entered Offline Status");
   let textContainer = document.getElementById(uid.uid);
   if (textContainer != null) {
     textContainer.textContent = "Offline";

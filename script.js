@@ -110,7 +110,7 @@ app.post("/updatePass/:id/:token", (req, res) => {
 });
 
 // Socket Works
-
-socket(io);
+let nmsp = io.of("/dashboard");
+socket(nmsp);
 
 server.listen(500);
