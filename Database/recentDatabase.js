@@ -6,7 +6,8 @@ mongoose.connect(
 );
 
 let recentChatSchema = new mongoose.Schema({
-  user: Array,
+  selectorId: String,
+  user: Object,
 });
 
 let recentChatModel = mongoose.model(

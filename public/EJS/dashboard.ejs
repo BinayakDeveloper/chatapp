@@ -82,26 +82,7 @@
               spellcheck="false"
             />
           </div>
-          <div class="recentUsers">
-            <% recentChatUsers.forEach((user,index)=>{ %>
-            <div class="user" id="<%= user._id %>">
-              <div
-                class="user-profilepic"
-                style="--profile-bgcolor: <%= user.colorCode %>"
-              >
-                <p><%= user.name.slice(0,1).toUpperCase() %></p>
-              </div>
-              <div class="user-details">
-                <div class="name">
-                  <p><%= user.name %></p>
-                </div>
-                <div class="status">
-                  <p id="<%= user.uid %>"><%= user.onlineStatus %></p>
-                </div>
-              </div>
-            </div>
-            <% }) %>
-          </div>
+          <div class="recentUsers"></div>
         </div>
       </div>
       <div class="right">

@@ -4,10 +4,20 @@ const addUserBtn = document.querySelector(".addUser");
 const allUsersContainer = document.querySelector(".allUsersContainer");
 const closeBtn = document.querySelector(".fa-close");
 const addUserSearch = document.querySelector(".searchUser input");
-const databaseUsers = document.querySelectorAll(".allUsers .user");
 const userName = document.querySelectorAll(
   ".allUsers .user .user-details .name p"
 );
+const recentUsersContainer = document.querySelector(".recentUsers");
+
+// const recentUsers = document.querySelectorAll(".recentUsers .user");
+
+// recentUsers.forEach((user, ind) => {
+//   user.addEventListener("click", () => {
+//     console.log(user);
+//     document.querySelector(".chats").innerHTML = "";
+//     socket.emit("getUserDetails", { id: user.id });
+//   });
+// });
 
 addUserBtn.addEventListener("click", () => {
   allUsersContainer.style.display = "block";
@@ -35,16 +45,55 @@ addUserSearch.addEventListener("input", () => {
   });
 });
 
+// Retrive Recent Chats
+const databaseUsers = document.querySelectorAll(".allUsers .user");
+
 databaseUsers.forEach((val) => {
   val.addEventListener("click", () => {
-    socket.emit("addToRecentChat", { userId: val.id });
+    let selectorId = document.querySelector(".profile").id;
+    socket.emit("addToRecentChat", { userId: val.id, selectorId });
+  });
+});
+
+socket.on("displayRecentChats", (data) => {
+  let recentUsersHTML = "";
+  data.forEach((val) => {
+    let selectorId = document.querySelector(".profile").id;
+    if (val.selectorId == selectorId) {
+      recentUsersHTML += `<div class="user" id="${val.user._id}">
+                <div
+                  class="user-profilepic"
+                  style="--profile-bgcolor: ${val.user.colorCode}"
+                >
+                  <p>${val.user.name.slice(0, 1).toUpperCase()}</p>
+                </div>
+                <div class="user-details">
+                  <div class="name">
+                    <p>${val.user.name}</p>
+                  </div>
+                  <div class="status">
+                    <p id="${val.user.uid}">${val.user.onlineStatus}</p>
+                  </div>
+                </div>
+              </div>`;
+    }
+  });
+
+  recentUsersContainer.innerHTML = recentUsersHTML;
+  const recentUsers = document.querySelectorAll(".recentUsers .user");
+
+  recentUsers.forEach((user, ind) => {
+    user.addEventListener("click", () => {
+      console.log(user);
+      document.querySelector(".chats").innerHTML = "";
+      socket.emit("getUserDetails", { id: user.id });
+    });
   });
 });
 
 // Search User From Recent Chats
 
 const recentSearchInput = document.querySelector(".search input");
-const recentUsers = document.querySelectorAll(".recentUsers .user");
 const recentUserName = document.querySelectorAll(
   ".recentUsers .user .user-details .name p"
 );
@@ -84,6 +133,7 @@ socket.on("clearChats", () => {
   document.querySelector(".chats").innerHTML = "";
   optMenu.classList.remove("optDisplay");
 });
+
 // Manage Message Input
 
 const textInp = document.querySelector("textarea");
@@ -155,14 +205,6 @@ socket.on("offlineStatus", (uid) => {
 });
 
 // User Click Events
-
-let users = document.querySelectorAll(".user");
-users.forEach((user, ind) => {
-  user.addEventListener("click", () => {
-    document.querySelector(".chats").innerHTML = "";
-    socket.emit("getUserDetails", { id: user.id });
-  });
-});
 
 socket.on("fetchUserDetails", (data) => {
   let user = data.user;

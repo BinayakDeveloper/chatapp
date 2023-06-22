@@ -18,7 +18,6 @@ async function dashboardAuth(req, res) {
     res.render(publicPath + "/EJS/dashboard.ejs", {
       user,
       allUsers,
-      recentChatUsers,
     });
   } else {
     let token = req.cookies.login;

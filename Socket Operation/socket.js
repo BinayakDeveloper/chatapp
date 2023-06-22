@@ -6,7 +6,9 @@ async function socket(io) {
   io.on("connection", async (socket) => {
     // Update Online Status
     let user = await database.findById(socket.handshake.auth.userId);
-    await user.updateOne({ $set: { onlineStatus: "Online" } });
+    if (user != null) {
+      await user.updateOne({ $set: { onlineStatus: "Online" } });
+    }
 
     //   Send Online Status To Frontend
     socket.broadcast.emit("onlineStatus", { uid: user.uid });
@@ -57,7 +59,6 @@ async function socket(io) {
 
       socket.broadcast.emit("receiveMessage", {
         senderId: data.senderId,
-        receiverId: data.receiverId,
         message: data.message,
       });
     });
@@ -109,6 +110,25 @@ async function socket(io) {
         socket.emit("clearChats");
       }
     });
+
+    socket.on("addToRecentChat", async (data) => {
+      let selectedUser = await database.findById(data.userId);
+      let userExistance = await recentDatabase.findOne({
+        selectorId: data.selectorId,
+        user: selectedUser,
+      });
+      if (userExistance == null) {
+        await recentDatabase({
+          selectorId: data.selectorId,
+          user: selectedUser,
+        }).save();
+      }
+      let recentChats = await recentDatabase.find({});
+      socket.emit("displayRecentChats", recentChats);
+    });
+
+    let recentChats = await recentDatabase.find({});
+    socket.emit("displayRecentChats", recentChats);
 
     socket.on("disconnect", async () => {
       // Update Offline Status
