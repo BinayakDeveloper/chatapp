@@ -8,16 +8,6 @@ const userName = document.querySelectorAll(
   ".allUsers .user .user-details .name p"
 );
 
-// const recentUsers = document.querySelectorAll(".recentUsers .user");
-
-// recentUsers.forEach((user, ind) => {
-//   user.addEventListener("click", () => {
-//     console.log(user);
-//     document.querySelector(".chats").innerHTML = "";
-//     socket.emit("getUserDetails", { id: user.id });
-//   });
-// });
-
 addUserBtn.addEventListener("click", () => {
   allUsersContainer.style.display = "block";
 });
@@ -51,8 +41,8 @@ databaseUsers.forEach((val) => {
   val.addEventListener("click", () => {
     let selectorId = document.querySelector(".profile").id;
     socket.emit("addToRecentChat", { userId: val.id, selectorId });
+    location.reload();
   });
-  location.reload();
 });
 
 socket.on("displayRecentChats", (data) => {
