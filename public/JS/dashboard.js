@@ -48,12 +48,11 @@ databaseUsers.forEach((val) => {
 
 socket.on("displayRecentChats", (data) => {
   const recentUsersContainer = document.querySelector(".recentUsers");
-  let recentUsersHTML = "";
   let { dbUsers, recentChats } = data;
   recentChats.forEach((val, ind) => {
     let selectorId = document.querySelector(".profile").id;
     if (val.selectorId == selectorId) {
-      recentUsersHTML += `<div class="user" id="${val.user._id}">
+      let recentUsersHTML = `<div class="user" id="${val.user._id}">
                     <div
                       class="user-profilepic"
                       style="--profile-bgcolor: ${val.user.colorCode}"
@@ -69,10 +68,10 @@ socket.on("displayRecentChats", (data) => {
                       </div>
                     </div>
                     </div>`;
+      recentUsersContainer.insertAdjacentHTML("beforeend", recentUsersHTML);
     }
   });
 
-  recentUsersContainer.innerHTML = recentUsersHTML;
   const recentUsers = document.querySelectorAll(".recentUsers .user");
   recentUsers.forEach((user) => {
     user.addEventListener("click", () => {
