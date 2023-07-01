@@ -1,14 +1,19 @@
 const database = require("../Database/usersDatabase");
 const chatDatabase = require("../Database/chatDatabase");
-// const recentDatabase = require("../Database/recentDatabase");
+const recentDatabase = require("../Database/recentDatabase");
 
 async function socket(io) {
   io.on("connection", async (socket) => {
     // Update Online Status
-    let user = await database.findById(socket.handshake.auth.userId);
+    let userId = socket.handshake.auth.userId;
+    let user = await database.findById(userId);
     if (user != null) {
       await user.updateOne({ $set: { onlineStatus: "Online" } });
       await user.updateOne({ $set: { isOnline: true } });
+    }
+    let recentUser = await recentDatabase.findOne({ userId });
+    if (recentUser != null) {
+      await recentUser.updateOne({ $set: { onlineStatus: "Online" } });
     }
 
     //   Send Online Status To Frontend
@@ -116,40 +121,27 @@ async function socket(io) {
       }
     });
 
-    // socket.on("addToRecentChat", async (data) => {
-    //   let selectedUser = await database.findById(data.userId);
-    //   let userExistance = await recentDatabase.findOne({
-    //     selectorId: data.selectorId,
-    //     user: selectedUser,
-    //   });
-    //   if (userExistance == null) {
-    //     await recentDatabase({
-    //       selectorId: data.selectorId,
-    //       user: selectedUser,
-    //     }).save();
-    //   }
-    //   let recentChats = await recentDatabase.find({});
-    //   let dbUsers = [];
-    //   recentChats.forEach(async (val) => {
-    //     let uid = val.user.uid;
-    //     let user = await database.findOne({ uid: uid });
-    //     dbUsers.push(user);
-    //     if (dbUsers.length == recentChats.length) {
-    //       socket.emit("displayRecentChats", { dbUsers, recentChats });
-    //     }
-    //   });
-    // });
-
-    // let recentChats = await recentDatabase.find({});
-    // let dbUsers = [];
-    // recentChats.forEach(async (val) => {
-    //   let uid = val.user.uid;
-    //   let user = await database.findOne({ uid: uid });
-    //   dbUsers.push(user);
-    //   if (dbUsers.length == recentChats.length) {
-    //     socket.emit("displayRecentChats", { dbUsers, recentChats });
-    //   }
-    // });
+    socket.on("addToRecentChat", async (data) => {
+      let { selectorId, userId } = data;
+      let userData = await database.findById(userId);
+      let recentUserExistance = await recentDatabase.findOne({
+        selectorId,
+        userId,
+      });
+      if (recentUserExistance == null) {
+        await recentDatabase({
+          selectorId,
+          userId,
+          email: userData.email,
+          name: userData.name,
+          uid: userData.uid,
+          colorCode: userData.colorCode,
+          onlineStatus: userData.onlineStatus,
+        }).save();
+        let recentUsers = await recentDatabase.find({ selectorId });
+        socket.emit("displayRecentChats", { recentUsers });
+      }
+    });
 
     socket.on("disconnect", async () => {
       // Update Offline Status
@@ -157,6 +149,11 @@ async function socket(io) {
       if (user != null) {
         await user.updateOne({ $set: { onlineStatus: "Offline" } });
         await user.updateOne({ $set: { isOnline: false } });
+      }
+
+      let recentUser = await recentDatabase.findOne({ userId });
+      if (recentUser != null) {
+        await recentUser.updateOne({ $set: { onlineStatus: "Offline" } });
       }
 
       //   Send Offline Status To Frontend

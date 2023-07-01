@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-
 const dotenv = require("dotenv");
 
 dotenv.config({
@@ -41,6 +40,6 @@ let Schema = new mongoose.Schema({
   ],
 });
 
-let model = mongoose.model("model", Schema, "users");
+let userModel = mongoose.model("userModel", Schema, "users");
 
-module.exports = model;
+module.exports = userModel;

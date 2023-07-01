@@ -8,32 +8,31 @@ const userName = document.querySelectorAll(
   ".allUsers .user .user-details .name p"
 );
 
-// addUserBtn.addEventListener("click", () => {
-//   allUsersContainer.style.display = "block";
-// });
+addUserBtn.addEventListener("click", () => {
+  allUsersContainer.style.display = "block";
+});
 
-// closeBtn.addEventListener("click", () => {
-//   addUserSearch.value = "";
-//   userName.forEach((val) => {
-//     let userContainer = val.parentElement.parentElement.parentElement;
-//     userContainer.style.display = "flex";
-//   });
-//   allUsersContainer.style.display = "none";
-// });
+closeBtn.addEventListener("click", () => {
+  addUserSearch.value = "";
+  userName.forEach((val) => {
+    let userContainer = val.parentElement.parentElement.parentElement;
+    userContainer.style.display = "flex";
+  });
+  allUsersContainer.style.display = "none";
+});
 
-// addUserSearch.addEventListener("input", () => {
-//   let typedName = addUserSearch.value.toLowerCase();
-//   console.log(typedName);
-//   userName.forEach((val) => {
-//     if (val.innerHTML.toLowerCase().includes(typedName)) {
-//       let userContainer = val.parentElement.parentElement.parentElement;
-//       userContainer.style.display = "flex";
-//     } else {
-//       let userContainer = val.parentElement.parentElement.parentElement;
-//       userContainer.style.display = "none";
-//     }
-//   });
-// });
+addUserSearch.addEventListener("input", () => {
+  let typedName = addUserSearch.value.toLowerCase();
+  userName.forEach((val) => {
+    if (val.innerHTML.toLowerCase().includes(typedName)) {
+      let userContainer = val.parentElement.parentElement.parentElement;
+      userContainer.style.display = "flex";
+    } else {
+      let userContainer = val.parentElement.parentElement.parentElement;
+      userContainer.style.display = "none";
+    }
+  });
+});
 
 // Retrive Recent Chats
 const databaseUsers = document.querySelectorAll(".allUsers .user");
@@ -42,11 +41,11 @@ databaseUsers.forEach((val) => {
   val.addEventListener("click", () => {
     let selectorId = document.querySelector(".profile").id;
     socket.emit("addToRecentChat", { userId: val.id, selectorId });
-    location.reload();
   });
 });
 
 const recentUsers = document.querySelectorAll(".recentUsers .user");
+
 recentUsers.forEach((user) => {
   user.addEventListener("click", () => {
     document.querySelector(".chats").innerHTML = "";
@@ -153,7 +152,6 @@ socket.on("receiveMessage", (data) => {
 // Socket Listeners
 
 socket.on("onlineStatus", (uid) => {
-  console.log("Entered Online Status");
   let textContainer = document.getElementById(uid.uid);
   if (textContainer != null) {
     textContainer.textContent = "Online";
@@ -161,7 +159,6 @@ socket.on("onlineStatus", (uid) => {
 });
 
 socket.on("offlineStatus", (uid) => {
-  console.log("Entered Offline Status");
   let textContainer = document.getElementById(uid.uid);
   if (textContainer != null) {
     textContainer.textContent = "Offline";
@@ -169,6 +166,27 @@ socket.on("offlineStatus", (uid) => {
 });
 
 // User Click Events
+
+socket.on("displayRecentChats", (data) => {
+  location.reload();
+  let recentChatContainer = document.querySelector(".recentUsers");
+  data.recentUsers.forEach((user) => {
+    let html = `<div class="user" id="${user.userId}">
+              <div class="user-profilepic">
+                <p>${user.name.slice(0, 1).toUpperCase()}</p>
+              </div>
+              <div class="user-details">
+                <div class="name">
+                  <p>${user.name}</p>
+                </div>
+                <div class="status">
+                  <p id="<%= user.uid %>">${user.onlineStatus}</p>
+                </div>
+              </div>
+            </div>`;
+    recentChatContainer.insertAdjacentHTML("beforeend", html);
+  });
+});
 
 socket.on("fetchUserDetails", (data) => {
   let user = data.user;

@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="/dashboard.css" />
   </head>
   <body>
-    <!-- <div class="allUsersContainer">
+    <div class="allUsersContainer">
       <div class="box-container">
         <div class="innerElements">
           <div class="heading-container">
@@ -50,7 +50,7 @@
           </div>
         </div>
       </div>
-    </div> -->
+    </div>
 
     <main>
       <div class="left">
@@ -64,9 +64,9 @@
           </div>
         </div>
 
-        <!-- <div class="addUser">
+        <div class="addUser">
           <i class="fa fa-add"></i>
-        </div> -->
+        </div>
 
         <div class="logout">
           <a href="/logout"><i class="fa fa-sign-out"></i></a>
@@ -83,20 +83,20 @@
             />
           </div>
           <div class="recentUsers">
-            <% allUsers.forEach((val)=>{ %>
-            <div class="user" id="<%= val._id %>">
+            <% recentUsers.forEach((user)=> { %>
+            <div class="user" id="<%= user.userId %>">
               <div
                 class="user-profilepic"
-                style="--profile-bgcolor: <%= val.colorCode %>"
+                style="--profile-bgcolor: <%= user.colorCode %>"
               >
-                <p><%= val.name.slice(0, 1).toUpperCase() %></p>
+                <p><%= user.name.slice(0,1).toUpperCase() %></p>
               </div>
               <div class="user-details">
                 <div class="name">
-                  <p><%= val.name %></p>
+                  <p><%= user.name %></p>
                 </div>
                 <div class="status">
-                  <p id="<%= val.uid %>"><%= val.onlineStatus %></p>
+                  <p id="<%= user.uid %>"><%= user.onlineStatus %></p>
                 </div>
               </div>
             </div>

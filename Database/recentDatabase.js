@@ -1,24 +1,26 @@
-// const mongoose = require("mongoose");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
 
-// const dotenv = require("dotenv");
+dotenv.config({
+  path: "./secret.env",
+});
 
-// dotenv.config({
-//   path: "./secret.env",
-// });
+const { MONGODB_URI, DB_NAME } = process.env;
 
-// const { MONGODB_URI, DB_NAME } = process.env;
+mongoose.connect(MONGODB_URI, { dbName: DB_NAME }).then(() => {
+  console.log("Database Connected Successfully");
+});
 
-// mongoose.connect(MONGODB_URI, { dbName: DB_NAME });
+let schema = mongoose.Schema({
+  selectorId: String,
+  userId: String,
+  email: String,
+  name: String,
+  uid: String,
+  colorCode: String,
+  onlineStatus: String,
+});
 
-// let recentChatSchema = new mongoose.Schema({
-//   selectorId: String,
-//   user: Object,
-// });
+let recentModel = mongoose.model("recentModel", schema, "recentUsers");
 
-// let recentChatModel = mongoose.model(
-//   "recentChatModel",
-//   recentChatSchema,
-//   "recentChats"
-// );
-
-// module.exports = recentChatModel;
+module.exports = recentModel;
